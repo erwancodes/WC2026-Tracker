@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+:root {
+  /* Sombre */
+  --bg: #0a0a0a;
+  --surface: #141414;
+  --surface-2: #1e1e1e;
+  --text: #ffffff;
+  --text-2: #a0a0a0;
+  --edge: rgba(255, 255, 255, 0.08);
+  --edge-strong: rgba(255, 255, 255, 0.14);
+  --live: #00d084;
+  --playoff: #f5a623;
+  --upcoming: #3b82f6;
+}
+
+[data-theme="light"] {
+  /* Clair — neutres tièdes, accents désaturés pour le contraste sur blanc */
+  --bg: #f6f7f5;
+  --surface: #ffffff;
+  --surface-2: #eef0ec;
+  --text: #15181a;
+  --text-2: #5f6660;
+  --edge: rgba(20, 30, 24, 0.08);
+  --edge-strong: rgba(20, 30, 24, 0.14);
+  --live: #0a8f59;
+  --playoff: #b06f0d;
+  --upcoming: #2563eb;
+}
+
+@theme {
+  --font-display: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --color-pitch: #1a6b3c;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-edge: var(--edge);
+  --color-edge-strong: var(--edge-strong);
+  --color-live: var(--live);
+  --color-playoff: var(--playoff);
+  --color-upcoming: var(--upcoming);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-display);
+  background-color: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+@keyframes pulse-live {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-pulse-live {
+  animation: pulse-live 1.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--surface-2) 0%,
+    var(--edge-strong) 50%,
+    var(--surface-2) 100%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.6s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 36s linear infinite;
+}
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float-soft {
+  animation: float-soft 6s ease-in-out infinite;
+}
+
+::selection {
+  background: #00d084;
+  color: #0a0a0a;
+}
