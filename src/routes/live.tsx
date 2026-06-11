@@ -3,6 +3,7 @@ import { ArrowClockwise } from '@phosphor-icons/react'
 import { useMatches } from '../hooks/useMatches'
 import { useAllMatches } from '../hooks/useAllMatches'
 import { useT } from '../lib/i18n'
+import { useSeo } from '../hooks/useSeo'
 import { getPhase, sortMatches } from '../lib/matchStatus'
 import { MatchCard } from '../components/MatchCard'
 import { SkeletonCard } from '../components/SkeletonCard'
@@ -58,6 +59,7 @@ function ErrorState({ message, onRetry }: { message?: string; onRetry: () => voi
 
 export function LivePage() {
   const t = useT()
+  useSeo({ title: `${t('live.title')} · WC26 Tracker`, description: t('live.subtitle') })
   const today = useMatches()
   const todayMatches = sortMatches(today.data ?? [])
   const noMatchToday = today.isSuccess && todayMatches.length === 0

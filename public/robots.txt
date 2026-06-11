@@ -1,0 +1,21 @@
+# WC26 Tracker — https://worldcup2026.erwanx.com
+User-agent: *
+Allow: /
+
+# Moteurs de réponse / IA (GEO) — accès explicitement autorisé
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://worldcup2026.erwanx.com/sitemap.xml

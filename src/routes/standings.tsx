@@ -3,6 +3,7 @@ import { ArrowClockwise } from '@phosphor-icons/react'
 import { useStandings } from '../hooks/useStandings'
 import { useSettings } from '../hooks/useSettings'
 import { useT } from '../lib/i18n'
+import { useSeo } from '../hooks/useSeo'
 import { formatTime } from '../lib/formatDate'
 import { GroupTable } from '../components/GroupTable'
 import { TeamDrawer, type DrawerTeam } from '../components/TeamDrawer'
@@ -31,6 +32,7 @@ function GroupSkeleton() {
 
 export function StandingsPage() {
   const t = useT()
+  useSeo({ title: `${t('standings.title')} · WC26 Tracker`, description: t('standings.subtitle') })
   const { settings } = useSettings()
   const standings = useStandings()
   const [filter, setFilter] = useState<string>('all')

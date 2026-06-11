@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { ArrowLeft, SoccerBall } from '@phosphor-icons/react'
 import { MarketingFooter } from '../components/Footer'
+import { useSeo } from '../hooks/useSeo'
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -14,6 +15,11 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 export function LegalPage() {
+  useSeo({
+    title: 'Mentions légales · WC26 Tracker',
+    description:
+      'Mentions légales de WC26 Tracker : éditeur, hébergement, données, cookies et absence d’affiliation à la FIFA.',
+  })
   return (
     <div className="min-h-[100dvh] bg-[#f6f7f5] text-zinc-900">
       {/* Nav */}

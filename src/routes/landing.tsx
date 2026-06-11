@@ -8,10 +8,14 @@ import {
   Clock,
   GlobeHemisphereWest,
   MapPin,
+  Plus,
   SoccerBall,
 } from '@phosphor-icons/react'
 import { Pitch } from '../components/Pitch'
 import { MarketingFooter } from '../components/Footer'
+import { useSettings } from '../hooks/useSettings'
+import { useSeo } from '../hooks/useSeo'
+import { landingContent } from '../lib/landingContent'
 
 /* ————— Bouton magnétique (motion values, hors cycle de rendu React) ————— */
 function MagneticLink({
@@ -63,7 +67,7 @@ function MagneticLink({
 }
 
 /* ————— Carte match du hero (surface blanche, terrain vert) ————— */
-function HeroMatchCard() {
+function HeroMatchCard({ liveLabel }: { liveLabel: string }) {
   return (
     <div className="animate-float-soft">
       <motion.div
@@ -75,7 +79,7 @@ function HeroMatchCard() {
         <div className="flex items-center justify-between px-5 py-3.5">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-[#0a8f59]/12 px-2.5 py-1 font-mono text-[11px] font-semibold tracking-wide text-[#0a8f59]">
             <span className="size-1.5 rounded-full bg-[#00d084] animate-pulse-live" />
-            <span className="animate-pulse-live">EN DIRECT · 74’</span>
+            <span className="animate-pulse-live">{liveLabel} · 74’</span>
           </span>
           <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400">
             Groupe C · J2
@@ -87,11 +91,11 @@ function HeroMatchCard() {
             <div className="flex flex-col items-start gap-2">
               <img
                 src="https://flagcdn.com/w80/ar.png"
-                alt="Argentine"
+                alt="Argentina"
                 className="h-9 w-13 rounded-sm object-cover shadow-[0_4px_12px_rgba(0,0,0,0.5)] ring-1 ring-white/40"
               />
               <span className="text-sm font-semibold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)]">
-                Argentine
+                Argentina
               </span>
             </div>
             <span className="font-mono text-4xl font-bold tracking-tight text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)]">
@@ -100,11 +104,11 @@ function HeroMatchCard() {
             <div className="flex flex-col items-end gap-2">
               <img
                 src="https://flagcdn.com/w80/hr.png"
-                alt="Croatie"
+                alt="Croatia"
                 className="h-9 w-13 rounded-sm object-cover shadow-[0_4px_12px_rgba(0,0,0,0.5)] ring-1 ring-white/40"
               />
               <span className="text-sm font-semibold text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.85)]">
-                Croatie
+                Croatia
               </span>
             </div>
           </div>
@@ -118,19 +122,6 @@ function HeroMatchCard() {
   )
 }
 
-const HOST_CITIES = [
-  'Atlanta', 'Boston', 'Dallas', 'Guadalajara', 'Houston', 'Kansas City',
-  'Los Angeles', 'Mexico', 'Miami', 'Monterrey', 'New York', 'Philadelphie',
-  'San Francisco', 'Seattle', 'Toronto', 'Vancouver',
-]
-
-const STATS = [
-  { value: '48', label: 'équipes qualifiées' },
-  { value: '104', label: 'matchs au programme' },
-  { value: '16', label: 'villes hôtes' },
-  { value: '3', label: 'pays organisateurs' },
-]
-
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: {
@@ -143,9 +134,9 @@ const fadeUp = {
 function MiniStanding() {
   const rows = [
     { flag: 'fr', name: 'France', pts: 6, tint: true },
-    { flag: 'no', name: 'Norvège', pts: 4, tint: true },
-    { flag: 'sn', name: 'Sénégal', pts: 1, tint: false },
-    { flag: 'uz', name: 'Ouzbékistan', pts: 0, tint: false },
+    { flag: 'no', name: 'Norway', pts: 4, tint: true },
+    { flag: 'sn', name: 'Senegal', pts: 1, tint: false },
+    { flag: 'uz', name: 'Uzbekistan', pts: 0, tint: false },
   ]
   return (
     <div className="divide-y divide-zinc-100 font-mono text-xs">
@@ -183,7 +174,7 @@ function TimezoneRows() {
         <div key={zone.tz} className="flex items-center justify-between px-1 py-2">
           <span className="text-zinc-500">{zone.city}</span>
           <span className="font-bold text-zinc-900">
-            {new Intl.DateTimeFormat('fr-FR', {
+            {new Intl.DateTimeFormat('en-GB', {
               timeZone: zone.tz,
               hour: '2-digit',
               minute: '2-digit',
@@ -199,19 +190,19 @@ function FeatureCard({
   icon: IconComponent,
   title,
   description,
+  exploreLabel,
   to,
   children,
-  className = '',
 }: {
   icon: typeof Broadcast
   title: string
   description: string
+  exploreLabel: string
   to: string
   children?: ReactNode
-  className?: string
 }) {
   return (
-    <motion.div variants={fadeUp} className={className}>
+    <motion.div variants={fadeUp}>
       <Link
         to={to}
         className="group flex h-full flex-col rounded-[1.75rem] border border-zinc-200 bg-white p-7 shadow-[0_20px_44px_-26px_rgba(20,40,30,0.16)] transition-[border-color,transform] hover:border-zinc-300 active:scale-[0.99] md:p-8"
@@ -223,7 +214,7 @@ function FeatureCard({
         <p className="mt-1.5 max-w-[44ch] text-sm leading-relaxed text-zinc-500">{description}</p>
         {children && <div className="mt-6 flex-1">{children}</div>}
         <span className="mt-6 flex items-center gap-1.5 text-sm font-semibold text-[#0a8f59]">
-          Explorer
+          {exploreLabel}
           <ArrowRight
             size={14}
             weight="bold"
@@ -235,7 +226,29 @@ function FeatureCard({
   )
 }
 
+function FaqItem({ q, a, index }: { q: string; a: string; index: number }) {
+  return (
+    <motion.details
+      variants={fadeUp}
+      className="group border-b border-zinc-200 py-5 [&_summary::-webkit-details-marker]:hidden"
+      open={index === 0}
+    >
+      <summary className="flex cursor-pointer list-none items-center justify-between gap-4">
+        <h3 className="text-base font-semibold text-zinc-900 md:text-lg">{q}</h3>
+        <span className="flex size-7 shrink-0 items-center justify-center rounded-full border border-zinc-300 text-zinc-500 transition-transform duration-300 group-open:rotate-45">
+          <Plus size={14} weight="bold" />
+        </span>
+      </summary>
+      <p className="mt-3 max-w-[68ch] text-sm leading-relaxed text-zinc-600">{a}</p>
+    </motion.details>
+  )
+}
+
 export function LandingPage() {
+  const { settings } = useSettings()
+  const c = landingContent[settings.language]
+  useSeo({ title: c.seo.title, description: c.seo.description })
+
   return (
     <div className="min-h-[100dvh] bg-[#f6f7f5] text-zinc-900">
       {/* Nav */}
@@ -254,19 +267,19 @@ export function LandingPage() {
               to="/app/standings"
               className="hidden rounded-full px-4 py-2 text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-900 sm:block"
             >
-              Classements
+              {c.nav.standings}
             </Link>
             <Link
               to="/app"
               className="rounded-full bg-zinc-900 px-5 py-2 text-sm font-bold text-white transition-[filter] hover:brightness-110 active:scale-[0.98]"
             >
-              Ouvrir l’app
+              {c.nav.openApp}
             </Link>
           </div>
         </nav>
       </header>
 
-      {/* Hero — asymétrique, texte à gauche / asset à droite */}
+      {/* Hero */}
       <section className="relative overflow-hidden">
         <div
           aria-hidden="true"
@@ -283,26 +296,23 @@ export function LandingPage() {
               className="mb-6 inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white px-3.5 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.18em] text-[#0a8f59]"
             >
               <span className="size-1.5 rounded-full bg-[#00d084] animate-pulse-live" />
-              11 juin — 19 juillet 2026
+              {c.hero.badge}
             </motion.p>
             <motion.h1
               variants={fadeUp}
               className="max-w-[15ch] text-4xl font-extrabold leading-[0.95] tracking-tighter md:text-6xl"
             >
-              La Coupe du Monde,{' '}
-              <span className="text-[#0a8f59]">match après match.</span>
+              {c.hero.titlePre} <span className="text-[#0a8f59]">{c.hero.titleAccent}</span>
             </motion.h1>
             <motion.p
               variants={fadeUp}
               className="mt-6 max-w-[54ch] text-base leading-relaxed text-zinc-600"
             >
-              Scores en temps réel, classements des 12 groupes et effectifs complets des
-              48 nations. La première Coupe du Monde à 48 équipes, aux États-Unis, au Mexique
-              et au Canada — suivie dans votre fuseau horaire, sans compte.
+              {c.hero.subtitle}
             </motion.p>
             <motion.div variants={fadeUp} className="mt-10 flex flex-wrap items-center gap-4">
               <MagneticLink to="/app">
-                Suivre les matchs en direct
+                {c.hero.ctaPrimary}
                 <ArrowRight
                   size={16}
                   weight="bold"
@@ -310,7 +320,7 @@ export function LandingPage() {
                 />
               </MagneticLink>
               <MagneticLink to="/app/standings" variant="ghost">
-                Voir les classements
+                {c.hero.ctaSecondary}
               </MagneticLink>
             </motion.div>
             <motion.p
@@ -318,29 +328,29 @@ export function LandingPage() {
               className="mt-8 flex items-center gap-3 font-mono text-xs text-zinc-400"
             >
               <span className="flex -space-x-1.5">
-                {['fr', 'br', 'ar', 'us', 'mx'].map((c) => (
+                {['fr', 'br', 'ar', 'us', 'mx'].map((code) => (
                   <img
-                    key={c}
-                    src={`https://flagcdn.com/w40/${c}.png`}
+                    key={code}
+                    src={`https://flagcdn.com/w40/${code}.png`}
                     alt=""
                     className="h-4 w-6 rounded-[2px] object-cover ring-2 ring-[#f6f7f5]"
                   />
                 ))}
               </span>
-              48 nations · 104 matchs · 16 villes
+              {c.hero.proof}
             </motion.p>
           </motion.div>
 
           <div className="flex justify-center lg:justify-end lg:pr-4">
-            <HeroMatchCard />
+            <HeroMatchCard liveLabel={settings.language === 'fr' ? 'EN DIRECT' : 'LIVE'} />
           </div>
         </div>
       </section>
 
-      {/* Bande de stats */}
+      {/* Stats */}
       <section className="border-y border-zinc-200 bg-white">
         <div className="mx-auto grid w-full max-w-[1400px] grid-cols-2 divide-x divide-zinc-200 md:grid-cols-4">
-          {STATS.map((stat) => (
+          {c.stats.map((stat) => (
             <div key={stat.label} className="px-6 py-8 md:px-10">
               <div className="font-mono text-3xl font-bold tracking-tight text-zinc-900 md:text-4xl">
                 {stat.value}
@@ -353,10 +363,10 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* Marquee villes hôtes */}
+      {/* Marquee */}
       <section className="overflow-hidden border-b border-zinc-200 py-5">
         <div className="flex w-max animate-marquee gap-10 whitespace-nowrap">
-          {[...HOST_CITIES, ...HOST_CITIES].map((city, i) => (
+          {[...c.cities, ...c.cities].map((city, i) => (
             <span
               key={`${city}-${i}`}
               className="flex items-center gap-10 font-mono text-xs uppercase tracking-[0.25em] text-zinc-400"
@@ -368,7 +378,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* Features — bento asymétrique */}
+      {/* Features */}
       <section className="mx-auto w-full max-w-[1400px] px-4 py-24 md:px-8 md:py-36">
         <motion.div
           initial="hidden"
@@ -380,18 +390,18 @@ export function LandingPage() {
             variants={fadeUp}
             className="max-w-[22ch] text-3xl font-bold tracking-tighter text-zinc-900 md:text-5xl"
           >
-            Tout le tournoi, sur un seul écran.
+            {c.features.heading}
           </motion.h2>
           <motion.p variants={fadeUp} className="mt-4 max-w-[55ch] text-base text-zinc-600">
-            Quatre vues, zéro friction. Le direct, les classements, les effectifs et vos horaires
-            locaux — tout est déjà prêt.
+            {c.features.subheading}
           </motion.p>
 
           <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-[1.4fr_1fr]">
             <FeatureCard
               icon={Broadcast}
-              title="Matchs en direct"
-              description="Chaque match du jour sur son terrain, score et minute actualisés toutes les 30 secondes. Prolongations et tirs au but compris."
+              title={c.features.live.title}
+              description={c.features.live.description}
+              exploreLabel={c.features.explore}
               to="/app"
             >
               <div className="relative h-40 overflow-hidden rounded-2xl">
@@ -399,7 +409,7 @@ export function LandingPage() {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="inline-flex items-center gap-1.5 rounded-full bg-black/45 px-3 py-1.5 font-mono text-xs font-semibold text-[#00d084] backdrop-blur-sm">
                     <span className="size-1.5 rounded-full bg-[#00d084] animate-pulse-live" />
-                    3 matchs en cours
+                    {c.features.live.badge}
                   </span>
                 </div>
               </div>
@@ -407,8 +417,9 @@ export function LandingPage() {
 
             <FeatureCard
               icon={ChartBar}
-              title="Classements"
-              description="Les 12 groupes en un coup d’œil, qualifiés et meilleurs troisièmes surlignés."
+              title={c.features.standings.title}
+              description={c.features.standings.description}
+              exploreLabel={c.features.explore}
               to="/app/standings"
             >
               <MiniStanding />
@@ -416,8 +427,9 @@ export function LandingPage() {
 
             <FeatureCard
               icon={GlobeHemisphereWest}
-              title="48 effectifs complets"
-              description="Joueurs, numéros, postes et clubs de chaque nation, à un clic du drapeau."
+              title={c.features.teams.title}
+              description={c.features.teams.description}
+              exploreLabel={c.features.explore}
               to="/app/teams"
             >
               <div className="flex flex-wrap gap-2">
@@ -435,8 +447,9 @@ export function LandingPage() {
 
             <FeatureCard
               icon={Clock}
-              title="Votre fuseau, vos horaires"
-              description="Quatre fuseaux pour les pays hôtes : choisissez le vôtre, toutes les heures s’adaptent."
+              title={c.features.timezone.title}
+              description={c.features.timezone.description}
+              exploreLabel={c.features.explore}
               to="/app/settings"
             >
               <TimezoneRows />
@@ -445,17 +458,42 @@ export function LandingPage() {
         </motion.div>
       </section>
 
-      {/* CTA final — asymétrique */}
+      {/* FAQ */}
       <section className="border-t border-zinc-200 bg-white">
+        <div className="mx-auto w-full max-w-3xl px-4 py-24 md:px-8 md:py-32">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ type: 'spring', stiffness: 90, damping: 18 }}
+            className="mb-10 text-3xl font-bold tracking-tighter text-zinc-900 md:text-4xl"
+          >
+            {c.faq.heading}
+          </motion.h2>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-60px' }}
+            variants={{ visible: { transition: { staggerChildren: 0.07 } } }}
+          >
+            {c.faq.items.map((item, i) => (
+              <FaqItem key={item.q} q={item.q} a={item.a} index={i} />
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="border-t border-zinc-200">
         <div className="mx-auto flex w-full max-w-[1400px] flex-col items-start gap-8 px-4 py-24 md:px-8 md:py-32 lg:pl-[16vw]">
           <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-[#0a8f59]">
-            Coup d’envoi aujourd’hui
+            {c.cta.eyebrow}
           </p>
           <h2 className="max-w-[18ch] text-3xl font-bold tracking-tighter text-zinc-900 md:text-5xl">
-            Le premier match n’attend pas.
+            {c.cta.heading}
           </h2>
           <MagneticLink to="/app">
-            Ouvrir le tracker
+            {c.cta.button}
             <ArrowRight size={16} weight="bold" />
           </MagneticLink>
         </div>

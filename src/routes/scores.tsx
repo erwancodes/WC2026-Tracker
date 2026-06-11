@@ -5,6 +5,7 @@ import { useAllMatches } from '../hooks/useAllMatches'
 import { useSettings } from '../hooks/useSettings'
 import { formatRound, useT } from '../lib/i18n'
 import { frenchName, useCountry } from '../lib/countries'
+import { useSeo } from '../hooks/useSeo'
 import { getPhase, type MatchPhase } from '../lib/matchStatus'
 import { formatDay, formatTime } from '../lib/formatDate'
 import { StatusBadge } from '../components/StatusBadge'
@@ -97,6 +98,7 @@ function ScoreRow({ match }: { match: Match }) {
 
 export function ScoresPage() {
   const t = useT()
+  useSeo({ title: `${t('scores.title')} · WC26 Tracker`, description: t('scores.subtitle') })
   const search = useSearch({ strict: false }) as { team?: string }
   const all = useAllMatches()
 

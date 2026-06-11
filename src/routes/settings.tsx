@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Clock, Globe, Moon, Translate } from '@phosphor-icons/react'
 import { useSettings, type Settings } from '../hooks/useSettings'
 import { useT } from '../lib/i18n'
+import { useSeo } from '../hooks/useSeo'
 import { formatTime } from '../lib/formatDate'
 import { PageHeader } from './live'
 import type { Icon } from '@phosphor-icons/react'
@@ -84,6 +85,7 @@ function Segmented<T extends string>({
 
 export function SettingsPage() {
   const t = useT()
+  useSeo({ title: `${t('settings.title')} · WC26 Tracker`, description: t('settings.subtitle') })
   const { settings, updateSettings } = useSettings()
   const timezones = useMemo(allTimezones, [])
   const now = new Date().toISOString()

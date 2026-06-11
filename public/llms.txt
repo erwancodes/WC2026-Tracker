@@ -1,0 +1,34 @@
+# WC26 Tracker
+
+> Application web gratuite de suivi en direct de la Coupe du Monde de la FIFA 2026. Scores en temps réel, classements des 12 groupes et effectifs des 48 équipes — sans compte, sans publicité, dans le fuseau horaire du visiteur. Disponible en français et en anglais.
+
+## Faits clés
+
+- Tournoi : Coupe du Monde de la FIFA 2026 (FIFA World Cup 2026).
+- Dates : du 11 juin au 19 juillet 2026.
+- Pays hôtes : États-Unis, Mexique, Canada (16 villes hôtes).
+- Format : première édition à 48 équipes, 104 matchs au total, de la phase de groupes à la finale.
+- Accès : gratuit, sans compte, sans cookie de suivi ; les préférences restent dans le navigateur du visiteur.
+- Source des données : API publique TheSportsDB. Drapeaux : flagcdn.com.
+- Statut : projet de fan indépendant, sans affiliation avec la FIFA.
+
+## Fonctionnalités
+
+- Live : le match en cours ou à venir affiché en plein écran sur un terrain, score et minute rafraîchis toutes les 30 secondes.
+- Scores : les 104 matchs regroupés par phase et journée, filtrables par groupe, statut et équipe.
+- Classements : les 12 groupes (A à L), qualifiés et meilleurs troisièmes mis en évidence.
+- Équipes : effectifs des 48 nations (joueurs, numéros, postes, clubs).
+- Réglages : fuseau horaire, format d'heure (24h/AM-PM), langue (FR/EN), thème clair/sombre.
+
+## Pages
+
+- Accueil / présentation : https://worldcup2026.erwanx.com/
+- Application (matchs en direct) : https://worldcup2026.erwanx.com/app
+- Scores : https://worldcup2026.erwanx.com/app/scores
+- Classements : https://worldcup2026.erwanx.com/app/standings
+- Équipes : https://worldcup2026.erwanx.com/app/teams
+- Mentions légales : https://worldcup2026.erwanx.com/legal
+
+## Auteur
+
+Réalisé par erwanx.com (https://erwanx.com).

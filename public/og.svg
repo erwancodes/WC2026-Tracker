@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" font-family="'Outfit', system-ui, sans-serif">
+  <rect width="1200" height="630" fill="#f6f7f5"/>
+
+  <!-- Terrain stylisé à droite -->
+  <g transform="translate(760 0)">
+    <rect x="0" y="0" width="440" height="630" fill="#1a6b3c"/>
+    <g fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="3">
+      <rect x="34" y="34" width="372" height="562"/>
+      <line x1="34" y1="315" x2="406" y2="315"/>
+      <circle cx="220" cy="315" r="78"/>
+      <rect x="120" y="34" width="200" height="92"/>
+      <rect x="120" y="504" width="200" height="92"/>
+    </g>
+    <circle cx="220" cy="315" r="6" fill="rgba(255,255,255,0.7)"/>
+    <!-- dégradé de fondu vers la gauche -->
+    <rect x="0" y="0" width="150" height="630" fill="url(#fade)"/>
+  </g>
+
+  <defs>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#f6f7f5"/>
+      <stop offset="1" stop-color="#f6f7f5" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Logo + marque -->
+  <g transform="translate(90 96)">
+    <rect x="0" y="0" width="56" height="56" rx="14" fill="#1a6b3c"/>
+    <circle cx="28" cy="28" r="13" fill="none" stroke="#ffffff" stroke-width="3"/>
+    <line x1="28" y1="12" x2="28" y2="44" stroke="#ffffff" stroke-width="3"/>
+    <text x="76" y="38" font-size="30" font-weight="700" fill="#15181a">WC26 <tspan fill="#0a8f59">Tracker</tspan></text>
+  </g>
+
+  <!-- Badge dates -->
+  <g transform="translate(90 210)">
+    <rect x="0" y="0" width="372" height="40" rx="20" fill="#ffffff" stroke="#e4e4e7"/>
+    <circle cx="24" cy="20" r="5" fill="#00d084"/>
+    <text x="40" y="26" font-size="17" font-weight="600" letter-spacing="2" fill="#0a8f59">11 JUIN — 19 JUILLET 2026</text>
+  </g>
+
+  <!-- Titre -->
+  <text x="88" y="330" font-size="78" font-weight="800" letter-spacing="-2" fill="#15181a">La Coupe du Monde,</text>
+  <text x="88" y="412" font-size="78" font-weight="800" letter-spacing="-2" fill="#0a8f59">match après match.</text>
+
+  <!-- Sous-titre -->
+  <text x="90" y="478" font-size="26" fill="#5f6660">Scores en direct · Classements · 48 équipes — gratuit, sans compte.</text>
+
+  <!-- Drapeaux -->
+  <g transform="translate(90 520)">
+    <g stroke="#e4e4e7">
+      <rect x="0" y="0" width="54" height="36" rx="4" fill="#1a47a3"/>
+      <rect x="64" y="0" width="54" height="36" rx="4" fill="#0aa64a"/>
+      <rect x="128" y="0" width="54" height="36" rx="4" fill="#74acdf"/>
+      <rect x="192" y="0" width="54" height="36" rx="4" fill="#b22234"/>
+      <rect x="256" y="0" width="54" height="36" rx="4" fill="#006847"/>
+    </g>
+    <text x="330" y="25" font-size="20" font-weight="600" fill="#15181a">USA · Mexique · Canada</text>
+  </g>
+</svg>

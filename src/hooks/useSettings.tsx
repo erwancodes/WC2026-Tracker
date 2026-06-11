@@ -17,11 +17,20 @@ export type Settings = {
 
 const STORAGE_KEY = 'wc2026_settings'
 
+/** Langue par défaut déduite de la locale du navigateur (français sinon anglais). */
+function detectLanguage(): Settings['language'] {
+  const langs =
+    typeof navigator !== 'undefined'
+      ? [navigator.language, ...(navigator.languages ?? [])]
+      : []
+  return langs.some((l) => l?.toLowerCase().startsWith('fr')) ? 'fr' : 'en'
+}
+
 function defaultSettings(): Settings {
   return {
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'Europe/Paris',
     timeFormat: '24h',
-    language: 'fr',
+    language: detectLanguage(),
     theme: 'light',
   }
 }

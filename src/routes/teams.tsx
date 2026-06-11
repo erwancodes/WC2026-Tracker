@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { ArrowClockwise } from '@phosphor-icons/react'
 import { useStandings } from '../hooks/useStandings'
 import { useT } from '../lib/i18n'
+import { useSeo } from '../hooks/useSeo'
 import { TeamGrid } from '../components/TeamGrid'
 import { TeamDrawer, type DrawerTeam } from '../components/TeamDrawer'
 import { PageHeader } from './live'
@@ -22,6 +23,7 @@ function TeamsSkeleton() {
 
 export function TeamsPage() {
   const t = useT()
+  useSeo({ title: `${t('teams.title')} · WC26 Tracker`, description: t('teams.subtitle') })
   const standings = useStandings()
   const [drawerTeam, setDrawerTeam] = useState<DrawerTeam | null>(null)
 
