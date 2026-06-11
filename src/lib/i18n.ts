@@ -27,6 +27,14 @@ const dict = {
     'live.no.upcoming': 'Aucun match à venir.',
     'live.others': 'Autres matchs du jour',
 
+    // Compte à rebours d'ouverture
+    'countdown.kickoff': 'Coup d’envoi du tournoi',
+    'countdown.opener': 'Match d’ouverture',
+    'countdown.days': 'jours',
+    'countdown.hours': 'heures',
+    'countdown.minutes': 'min',
+    'countdown.seconds': 'sec',
+
     // Barre match en cours / prochain
     'bar.live': 'EN DIRECT',
     'bar.next': 'PROCHAIN MATCH',
@@ -127,6 +135,13 @@ const dict = {
     'live.retry': 'Retry',
     'live.no.upcoming': 'No upcoming match.',
     'live.others': 'Other matches today',
+
+    'countdown.kickoff': 'Tournament kick-off',
+    'countdown.opener': 'Opening match',
+    'countdown.days': 'days',
+    'countdown.hours': 'hours',
+    'countdown.minutes': 'min',
+    'countdown.seconds': 'sec',
 
     'bar.live': 'LIVE',
     'bar.next': 'NEXT MATCH',

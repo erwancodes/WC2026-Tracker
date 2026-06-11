@@ -63,8 +63,8 @@ export function LivePage() {
   const today = useMatches()
   const todayMatches = sortMatches(today.data ?? [])
   const noMatchToday = today.isSuccess && todayMatches.length === 0
-  // Fallback : si aucun match aujourd'hui, on met en avant le prochain du tournoi.
-  const all = useAllMatches({ enabled: noMatchToday })
+  // Tous les matchs : sert au repli « prochains matchs » et à détecter l'avant-tournoi.
+  const all = useAllMatches()
 
   // Chargement initial
   if (today.isLoading || (noMatchToday && all.isLoading)) {
@@ -117,9 +117,18 @@ export function LivePage() {
     )
   }
 
+  // Avant-tournoi : aucun match n'a encore débuté → compte à rebours d'ouverture sur le terrain.
+  const tournamentStarted = (all.data ?? []).some(
+    (m) => getPhase(m.fixture.status.short) !== 'upcoming',
+  )
+  const opening =
+    !!all.data &&
+    !tournamentStarted &&
+    getPhase(featured.fixture.status.short) === 'upcoming'
+
   return (
     <div className="space-y-10">
-      <FeaturedPitch match={featured} />
+      <FeaturedPitch match={featured} opening={opening} />
 
       {rest.length > 0 && (
         <section>
