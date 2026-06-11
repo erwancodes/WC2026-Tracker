@@ -4,7 +4,7 @@
 
 La première Coupe du Monde à 48 équipes se joue du 11 juin au 19 juillet 2026 aux États-Unis, au Mexique et au Canada. WC26 Tracker rassemble tout ce qu'il faut pour la suivre, sur un seul écran, depuis n'importe quel appareil.
 
-> Site : **https://wc26.erwanx.com**
+> Site : **https://worldcup2026.erwanx.com**
 
 ---
 
